@@ -3,10 +3,10 @@
 ////////////////////////////////////////////////////////////////////
 package it.unipd.tos.business.exception;
 
-public class RestaurantBillException extends Throwable{
+public class TakeAwayBillException extends Throwable{
     public String errorMsg;
 
-    public RestaurantBillException(String errorMsg){
+    public TakeAwayBillException(String errorMsg){
         this.errorMsg = errorMsg;
     }
 
