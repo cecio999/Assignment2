@@ -28,7 +28,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Nafta", 5.75));
         User user = new User("Francesco", "Dallan", 21);
         try {
- assertEquals(7.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+ assertEquals(7.75, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
@@ -58,7 +58,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Gelato, "Pistacchio", 1.0));
         User user = new User("Francesco", "Dallan", 21);
         try {
-            assertEquals(6.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+            assertEquals(6.75, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
@@ -96,4 +96,16 @@ public class TakeAwayImplTest {
         takeAwayImpl.getOrderPrice(items,user, new Date(500));
         }
 
+    @Test
+    public void testCommissionIfLessThan10(){
+        TakeAwayImpl takeAwayImpl = new TakeAwayImpl();
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        items.add(new MenuItem(MenuItem.types.Bevanda,"Aranciata",3));
+        User user = new User("Francesco", "Dallan", 21);
+        try {
+            assertEquals(3.5, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+        } catch (TakeAwayBillException e){
+            e.getErrorMsg();
+        }
+    }
 }

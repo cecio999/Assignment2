@@ -13,6 +13,15 @@ import it.unipd.tos.model.User;
 import it.unipd.tos.business.exception.TakeAwayBillException;
 
 class TakeAwayImpl implements TakeAwayBill{
+
+    public double addCommission(double sum, List<MenuItem>itemsOrdered) {
+        if (sum < 10 && itemsOrdered.size()>0)
+        {
+            sum += 0.5;
+        }
+        return sum;
+    }
+
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user, Date time)
             throws TakeAwayBillException {
         if(itemsOrdered.size()>30)
@@ -48,6 +57,10 @@ class TakeAwayImpl implements TakeAwayBill{
         {
             sum = sum - 0.1*sum;
         }
+
+        sum = addCommission(sum,itemsOrdered);
+
         return sum;
     }
 };
+
