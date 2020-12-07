@@ -27,7 +27,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Nafta", 5.75));
         User user = new User("Francesco", "Dallan", 21);
         try {
- assertEquals(7.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.2);
+ assertEquals(7.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
         } catch (RestaurantBillException e){
             e.getErrorMsg();
         }
@@ -39,7 +39,7 @@ public class TakeAwayImplTest {
         List<MenuItem> items = new ArrayList<MenuItem>();
         User user = new User("Francesco", "Dallan", 21);
         try {
- assertEquals(0, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.2);
+ assertEquals(0, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
         } catch (RestaurantBillException e){
             e.getErrorMsg();
         }
@@ -57,7 +57,22 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Gelato, "Pistacchio", 1.0));
         User user = new User("Francesco", "Dallan", 21);
         try {
-            assertEquals(6.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.2);
+            assertEquals(6.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+        } catch (RestaurantBillException e){
+            e.getErrorMsg();
+        }
+    }
+
+    @Test
+    public void testTotalMoreThanFiftyWithIceCreamAndPudding(){
+        TakeAwayImpl takeAwayImpl = new TakeAwayImpl();
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        items.add(new MenuItem(MenuItem.types.Gelato,"Coppa Costosa", 20));
+        items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Random", 20));
+        items.add(new MenuItem(MenuItem.types.Budino, "Budino Costoso", 20));
+        User user = new User("Francesco", "Dallan", 21);
+        try {
+            assertEquals(54, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
         } catch (RestaurantBillException e){
             e.getErrorMsg();
         }

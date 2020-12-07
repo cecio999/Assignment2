@@ -17,12 +17,17 @@ class TakeAwayImpl implements TakeAwayBill{
             throws RestaurantBillException {
         double cheaperIceCream = Double.MAX_VALUE;
         int nIceCream = 0;
+        int priceICP = 0;
         for (MenuItem i: itemsOrdered) {
             if(i.getItemType() == MenuItem.types.Gelato) {
                 nIceCream++;
+                priceICP += i.getPrice();
                 if(i.getPrice()<cheaperIceCream) {
                     cheaperIceCream = i.getPrice();
                 }
+            } else if(i.getItemType() == MenuItem.types.Budino)
+            {
+                priceICP += i.getPrice();
             }
         }
         double sum = 0;
@@ -35,6 +40,10 @@ class TakeAwayImpl implements TakeAwayBill{
             sum -= cheaperIceCream/2;
         }
 
+        if(priceICP > 50)
+        {
+            sum = sum - 0.1*sum;
+        }
         return sum;
     }
 };
