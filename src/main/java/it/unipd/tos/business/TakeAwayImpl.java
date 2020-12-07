@@ -15,6 +15,10 @@ import it.unipd.tos.business.exception.RestaurantBillException;
 class TakeAwayImpl implements TakeAwayBill{
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user, Date time)
             throws RestaurantBillException {
+        if(itemsOrdered.size()>30)
+        {
+            throw new RestaurantBillException("Limite di elementi superato");
+        }
         double cheaperIceCream = Double.MAX_VALUE;
         int nIceCream = 0;
         int priceICP = 0;

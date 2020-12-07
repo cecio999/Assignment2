@@ -77,4 +77,16 @@ public class TakeAwayImplTest {
             e.getErrorMsg();
         }
     }
+
+    @Test(expected = RestaurantBillException.class)
+    public void testMoreThan30ElementsOrder() throws RestaurantBillException{
+        TakeAwayImpl takeAwayImpl = new TakeAwayImpl();
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        for(int i = 0; i < 31; i++) {
+            items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Nutella", 6));
+        }
+        User user = new User("Francesco", "Dallan", 21);
+        takeAwayImpl.getOrderPrice(items,user, new Date(500));
+        }
+
 }
