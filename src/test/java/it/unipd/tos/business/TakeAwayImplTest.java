@@ -6,9 +6,10 @@ package it.unipd.tos.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import it.unipd.tos.business.exception.RestaurantBillException;
+import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.Date;
@@ -28,7 +29,7 @@ public class TakeAwayImplTest {
         User user = new User("Francesco", "Dallan", 21);
         try {
  assertEquals(7.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
-        } catch (RestaurantBillException e){
+        } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
     }
@@ -40,7 +41,7 @@ public class TakeAwayImplTest {
         User user = new User("Francesco", "Dallan", 21);
         try {
  assertEquals(0, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
-        } catch (RestaurantBillException e){
+        } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
     }
@@ -58,7 +59,7 @@ public class TakeAwayImplTest {
         User user = new User("Francesco", "Dallan", 21);
         try {
             assertEquals(6.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
-        } catch (RestaurantBillException e){
+        } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
     }
@@ -73,13 +74,19 @@ public class TakeAwayImplTest {
         User user = new User("Francesco", "Dallan", 21);
         try {
             assertEquals(54, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
-        } catch (RestaurantBillException e){
+        } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
     }
 
-    @Test(expected = RestaurantBillException.class)
-    public void testMoreThan30ElementsOrder() throws RestaurantBillException{
+    @Test
+    public void testExceptionMessage(){
+        TakeAwayBillException e = new TakeAwayBillException("Limite di elementi superato");
+        assertEquals("Limite di elementi superato", e.getErrorMsg());
+    }
+
+    @Test(expected = TakeAwayBillException.class)
+    public void testMoreThan30ElementsOrder() throws TakeAwayBillException{
         TakeAwayImpl takeAwayImpl = new TakeAwayImpl();
         List<MenuItem> items = new ArrayList<MenuItem>();
         for(int i = 0; i < 31; i++) {
