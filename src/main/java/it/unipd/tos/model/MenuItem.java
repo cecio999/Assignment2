@@ -18,4 +18,5 @@ public class MenuItem {
     public double getPrice(){
         return price;
     }
+    public types getItemType(){return itemType;}
 }

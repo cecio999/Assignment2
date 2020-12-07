@@ -44,4 +44,22 @@ public class TakeAwayImplTest {
             e.getErrorMsg();
         }
     }
+
+    @Test
+    public void testOrderWithMoreThanFiveIceCreams(){
+        TakeAwayImpl takeAwayImpl = new TakeAwayImpl();
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        items.add(new MenuItem(MenuItem.types.Gelato,"Bacio",0.5));
+        items.add(new MenuItem(MenuItem.types.Gelato, "Pinguino", 1.0));
+        items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Nafta", 1.0));
+        items.add(new MenuItem(MenuItem.types.Gelato, "Stracciatella", 1.0));
+        items.add(new MenuItem(MenuItem.types.Gelato, "Vaniglia", 2.0));
+        items.add(new MenuItem(MenuItem.types.Gelato, "Pistacchio", 1.0));
+        User user = new User("Francesco", "Dallan", 21);
+        try {
+            assertEquals(6.25, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.2);
+        } catch (RestaurantBillException e){
+            e.getErrorMsg();
+        }
+    }
 }
