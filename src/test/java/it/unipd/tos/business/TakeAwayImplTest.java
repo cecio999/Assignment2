@@ -4,15 +4,13 @@
 package it.unipd.tos.business;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.MenuItem;
+import it.unipd.tos.model.Order;
 import it.unipd.tos.model.User;
-import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -107,5 +105,59 @@ public class TakeAwayImplTest {
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
+    }
+
+    @Test
+    public void testGiftTenOrders(){
+        List<Order> orders = new ArrayList<Order>();
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        items.add(new MenuItem(MenuItem.types.Bevanda,"Aranciata",3));
+        User user1 = new User("Francesco","Dallan",21);
+        User user2 = new User("Alice","Santo",12);
+        User user3 = new User("Mattei","Martino",17);
+        User user4 = new User("Ciao","Mondo",1);
+        for(int i = 0; i < 20; i++) {
+            User user = new User("User"+i,"User"+i,17);
+            orders.add(new Order(items, 18, 3.5, user));
+        }
+        orders.add(new Order(items, 18, 3.5, user1));
+        orders.add(new Order(items, 18, 3.5, user2));
+        orders.add(new Order(items, 15, 3.5, user3));
+        orders.add(new Order(items, 18, 3.5, user4));
+        items.add(new MenuItem(MenuItem.types.Bevanda,"Coca Cola",2));
+        orders.add(new Order(items, 18, 5.5, user1));
+        orders.add(new Order(items, 14, 5.5, user2));
+        orders.add(new Order(items, 18, 5.5, user3));
+        orders.add(new Order(items, 16, 5.5, user4));
+        TakeAwayImpl toTest = new TakeAwayImpl();
+        toTest.giftTenOrders(orders);
+        int countZero = 0;
+        for (Order o: orders) {
+            if(o.getPrice() == 0)
+            {
+                countZero++;
+            }
+        }
+        assertEquals(10,countZero);
+    }
+    @Test
+    public void testGiftLessThanTenOrders(){
+        List<Order> orders = new ArrayList<Order>();
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        items.add(new MenuItem(MenuItem.types.Bevanda,"Aranciata",3));
+        for(int i = 0; i < 5; i++) {
+            User user = new User("User"+i,"User"+i,17);
+            orders.add(new Order(items, 18, 3.5, user));
+        }
+        TakeAwayImpl toTest = new TakeAwayImpl();
+        toTest.giftTenOrders(orders);
+        int countZero = 0;
+        for (Order o: orders) {
+            if(o.getPrice() == 0)
+            {
+                countZero++;
+            }
+        }
+        assertEquals(5,countZero);
     }
 }
