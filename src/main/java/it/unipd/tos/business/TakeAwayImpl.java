@@ -22,7 +22,7 @@ class TakeAwayImpl implements TakeAwayBill{
         return sum;
     }
 
-    public double getOrderPrice(List<MenuItem> itemsOrdered, User user, Date time)
+    public double getOrderPrice(List<MenuItem> itemsOrdered, User user)
             throws TakeAwayBillException {
         if(itemsOrdered.size()>30)
         {

@@ -28,7 +28,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Nafta", 5.75));
         User user = new User("Francesco", "Dallan", 21);
         try {
- assertEquals(7.75, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+ assertEquals(7.75, takeAwayImpl.getOrderPrice(items, user),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
@@ -40,7 +40,7 @@ public class TakeAwayImplTest {
         List<MenuItem> items = new ArrayList<MenuItem>();
         User user = new User("Francesco", "Dallan", 21);
         try {
- assertEquals(0, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+ assertEquals(0, takeAwayImpl.getOrderPrice(items, user),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
@@ -58,7 +58,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Gelato, "Pistacchio", 1.0));
         User user = new User("Francesco", "Dallan", 21);
         try {
-            assertEquals(6.75, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+            assertEquals(6.75, takeAwayImpl.getOrderPrice(items, user),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
@@ -73,7 +73,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Budino, "Budino Costoso", 20));
         User user = new User("Francesco", "Dallan", 21);
         try {
-            assertEquals(54, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+            assertEquals(54, takeAwayImpl.getOrderPrice(items, user),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
@@ -93,7 +93,7 @@ public class TakeAwayImplTest {
             items.add(new MenuItem(MenuItem.types.Gelato, "Coppa Nutella", 6));
         }
         User user = new User("Francesco", "Dallan", 21);
-        takeAwayImpl.getOrderPrice(items,user, new Date(500));
+        takeAwayImpl.getOrderPrice(items,user);
         }
 
     @Test
@@ -103,7 +103,7 @@ public class TakeAwayImplTest {
         items.add(new MenuItem(MenuItem.types.Bevanda,"Aranciata",3));
         User user = new User("Francesco", "Dallan", 21);
         try {
-            assertEquals(3.5, takeAwayImpl.getOrderPrice(items, user, new Date(500)),0.0);
+            assertEquals(3.5, takeAwayImpl.getOrderPrice(items, user),0.0);
         } catch (TakeAwayBillException e){
             e.getErrorMsg();
         }
