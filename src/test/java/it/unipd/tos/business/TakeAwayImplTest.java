@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class TakeAwayImplTest {
 
-    @SuppressWarnings("checkstyle:LineLength")
     @Test
     public void testSimpleSumOfMenuItems(){
         TakeAwayImpl takeAwayImpl = new TakeAwayImpl();
@@ -115,7 +114,7 @@ public class TakeAwayImplTest {
         User user1 = new User("Francesco","Dallan",21);
         User user2 = new User("Alice","Santo",12);
         User user3 = new User("Mattei","Martino",17);
-        User user4 = new User("Ciao","Mondo",1);
+        User user4 = new User("Ciao","Mondo",-1);
         for(int i = 0; i < 20; i++) {
             User user = new User("User"+i,"User"+i,17);
             orders.add(new Order(items, 18, 3.5, user));
