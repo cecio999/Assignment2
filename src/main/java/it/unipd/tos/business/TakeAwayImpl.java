@@ -6,9 +6,11 @@ package it.unipd.tos.business;
 
 import it.unipd.tos.model.MenuItem;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import it.unipd.tos.model.MenuItem;
+import it.unipd.tos.model.Order;
 import it.unipd.tos.model.User;
 import it.unipd.tos.business.exception.TakeAwayBillException;
 
@@ -22,7 +24,7 @@ class TakeAwayImpl implements TakeAwayBill{
         return sum;
     }
 
-    public double getOrderPrice(List<MenuItem> itemsOrdered, User user, Date time)
+    public double getOrderPrice(List<MenuItem> itemsOrdered, User user)
             throws TakeAwayBillException {
         if(itemsOrdered.size()>30)
         {
@@ -61,6 +63,33 @@ class TakeAwayImpl implements TakeAwayBill{
         sum = addCommission(sum,itemsOrdered);
 
         return sum;
+    }
+
+    public void giftTenOrders(List<Order> orders){
+        int counter = 0;
+        int rand = 0;
+        int diffUser = 0;
+        List<User> users = new ArrayList<User>();
+        for (Order o: orders) {
+            if (!users.contains(o.getUser())) {
+                users.add(o.getUser());
+            }
+        }
+        diffUser = users.size();
+        for(int i = diffUser-1; i >= 0; i--)
+        {
+            users.remove(i);
+        }
+        while(counter < 10 && counter < diffUser) {
+            rand = ((int)(Math.random()*1000)) % orders.size();
+            if (orders.get(rand).getUserAge() < 18 && orders.get(rand).getTime() == 18) {
+                if (!users.contains(orders.get(rand).getUser())) {
+                    orders.get(rand).setPrice(0);
+                    users.add(orders.get(rand).getUser());
+                    counter++;
+                }
+            }
+        }
     }
 };
 
